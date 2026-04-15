@@ -18,6 +18,9 @@ export async function getListings(filters = {}) {
   try {
     const query = buildParams(filters);
     const res = await axios.get(`${BASE_URL}/listings${query ? '?' + query : ''}`);
+    if (!Array.isArray(res.data)) {
+      return applyFilters(mockListings, filters);
+    }
     return res.data;
   } catch {
     // Fall back to local mock data when backend is not running

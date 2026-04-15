@@ -74,9 +74,13 @@ app.post('/api/listings', (req, res) => {
   res.status(201).json({ success: true, message: 'Listing submitted for review.', listing: newListing });
 });
 
-app.listen(PORT, () => {
-  console.log(`\n🏠 BuzzHome API running at http://localhost:${PORT}`);
-  console.log(`   GET  /api/listings`);
-  console.log(`   GET  /api/listings/:id`);
-  console.log(`   POST /api/listings\n`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n🏠 BuzzHome API running at http://localhost:${PORT}`);
+    console.log(`   GET  /api/listings`);
+    console.log(`   GET  /api/listings/:id`);
+    console.log(`   POST /api/listings\n`);
+  });
+}
+
+module.exports = app;

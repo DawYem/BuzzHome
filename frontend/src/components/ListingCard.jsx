@@ -36,7 +36,10 @@ export default function ListingCard({ listing }) {
     estimatedCommute,
   } = listing;
 
-  const bedroomLabel = bedrooms === 0 ? 'Studio' : `${bedrooms} BR`;
+  const safePrice = Number.isFinite(Number(price)) ? Number(price) : 0;
+  const safeBedrooms = Number.isFinite(Number(bedrooms)) ? Number(bedrooms) : 0;
+  const safeBathrooms = Number.isFinite(Number(bathrooms)) ? Number(bathrooms) : 0;
+  const bedroomLabel = safeBedrooms === 0 ? 'Studio' : `${safeBedrooms} BR`;
 
   return (
     <div className="card group flex flex-col">
@@ -65,7 +68,7 @@ export default function ListingCard({ listing }) {
         {/* Price */}
         <div className="flex items-start justify-between gap-2 mb-1">
           <p className="text-2xl font-display font-bold text-gold-bright">
-            ${price.toLocaleString()}
+            ${safePrice.toLocaleString()}
             <span className="text-sm font-normal text-gray-400">/mo</span>
           </p>
           <span className="chip bg-navy/5 text-navy font-medium shrink-0">{leaseTerm}</span>
@@ -102,7 +105,7 @@ export default function ListingCard({ listing }) {
             🛏 {bedroomLabel}
           </span>
           <span className="chip bg-gray-100 text-gray-600">
-            🚿 {bathrooms} Bath
+            🚿 {safeBathrooms} Bath
           </span>
         </div>
 
